@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1 class="text-center">Grocery List</h1>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">Item Name</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.item }}</td>
+            <td>{{ item.quantity }}</td>
+
+            <td>
+              <button
+                type="button"
+                class="btn btn-info btn-sm mr-2"
+                [routerLink]="['/itemDetail']"
+                [queryParams]="{ name: item.item }"
+              >
+                View
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                class="btn btn-danger btn-sm"
+                (click)="removeItem(item)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-success" (click)="showAddItemForm()">
+        Add New Grocery
+      </button>
+
+      <div class="mt-4">
+        <form *ngIf="itemsForm">
+          <h2>Add New Grocery</h2>
+          <p>
+            Item: <input type="text" name="item" [(ngModel)]="newItem.item" />
+          </p>
+          <p>
+            Quantity:
+            <input type="text" name="quantity" [(ngModel)]="newItem.quantity" />
+          </p>
+          <p>
+            Image Url:
+            <input type="text" name="image" [(ngModel)]="newItem.imageUrl" />
+          </p>
+        
+          <p>
+            <button
+              type="button"
+              class="btn btn-primary mr-2"
+              (click)="saveItem(newItem)"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="cancelNewItem()"
+            >
+              Cancel
+            </button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
